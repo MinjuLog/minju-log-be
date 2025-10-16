@@ -1,0 +1,55 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+# .yml 파일을 무시하지 않도록 설정
+!.github/workflows/*.yml
+
+
+# appspec.yml 무시하지 않음
+!appspec.yml
+
+# env 파일
+*.env
+
+### MAC OS ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+### resource 파일 깃허브에 x
+src/main/resources/
