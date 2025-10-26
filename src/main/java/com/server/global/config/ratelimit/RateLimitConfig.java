@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 import java.time.Duration;
 
 @Slf4j
-@Configuration
+//@Configuration
 @EnableConfigurationProperties(RateLimitProperties.class)
 @RequiredArgsConstructor
 public class RateLimitConfig {

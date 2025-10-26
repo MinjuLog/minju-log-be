@@ -1,32 +1,23 @@
+# 실행 명령어(env 파일 포함)
+# docker-compose -f docker-compose.local.yml up -d
 services:
   mysql:
-    container_name: mysql-mcp-market-local
+    container_name: mysql-minjulog-local
     image: mysql:8.0
     ports:
       - target: ${MYSQL_INNER_PORT}
         published: ${MYSQL_OUTER_PORT}
-        protocol: tcp
-        host_ip: 0.0.0.0
     environment:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
     command: --default-authentication-plugin=mysql_native_password
-    networks:
-      mm_local_network
 
   redis:
-    container_name: redis-mcp-market-local
+    container_name: redis-minjulog-local
     image: redis:latest
     ports:
       - target: ${REDIS_INNER_PORT}
         published: ${REDIS_OUTER_PORT}
-        protocol: tcp
-        host_ip: 0.0.0.0
     command: redis-server --requirepass ${REDIS_PASSWORD}
-    networks:
-      mm_local_network
-
-networks:
-  mm_local_network
