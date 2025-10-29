@@ -13,8 +13,18 @@ public enum GlobalErrorStatus implements BaseCodeInterface {
     _INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "COMMON500", "서버 에러, 관리자에게 문의 바랍니다."),
     _BAD_REQUEST(HttpStatus.BAD_REQUEST, "COMMON400", "잘못된 요청입니다."),
     _UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "COMMON401", "인증이 필요합니다."),
+
+	// === JWT 관련 에러 ===
+	_INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "JWT401", "유효하지 않은 토큰입니다."),
+	_EXPIRED_TOKEN(HttpStatus.UNAUTHORIZED, "JWT402", "만료된 토큰입니다."),
+	_UNSUPPORTED_TOKEN(HttpStatus.UNAUTHORIZED, "JWT403", "지원하지 않는 토큰 형식입니다."),
+	_EMPTY_TOKEN(HttpStatus.UNAUTHORIZED, "JWT404", "토큰이 존재하지 않습니다."),
+	_MALFORMED_TOKEN(HttpStatus.UNAUTHORIZED, "JWT405", "토큰 형식이 올바르지 않습니다."),
+	_SIGNATURE_INVALID(HttpStatus.UNAUTHORIZED, "JWT406", "토큰 서명이 유효하지 않습니다."),
+	_TOKEN_VALIDATION_FAILED(HttpStatus.UNAUTHORIZED, "JWT401-7", "토큰 검증에 실패했습니다."),
+
     _VALIDATION_ERROR(HttpStatus.BAD_REQUEST, "COMMON402", "Validation Error입니다."),
-    _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
+    _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "권한이 없습니다."),
     _NOT_FOUND(HttpStatus.NOT_FOUND, "COMMON404", "요청한 정보를 찾을 수 없습니다."),
     _METHOD_ARGUMENT_ERROR(HttpStatus.BAD_REQUEST, "COMMON405", "Argument Type이 올바르지 않습니다."),
     _REQUEST_FORMAT_ERROR(HttpStatus.BAD_REQUEST, "COMMON406", "요청 본문 형식이 올바르지 않습니다. Enum 값이나 다른 데이터 형식을 확인해주세요."),
