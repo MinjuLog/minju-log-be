@@ -17,8 +17,7 @@ public enum GlobalErrorStatus implements BaseCodeInterface {
 	// === JWT 관련 에러 ===
 	_INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "JWT401", "유효하지 않은 토큰입니다."),
 	_EXPIRED_TOKEN(HttpStatus.UNAUTHORIZED, "JWT402", "만료된 토큰입니다."),
-	_UNSUPPORTED_TOKEN(HttpStatus.UNAUTHORIZED, "JWT403", "지원하지 않는 토큰 형식입니다."),
-	_EMPTY_TOKEN(HttpStatus.UNAUTHORIZED, "JWT404", "토큰이 존재하지 않습니다."),
+	_EMPTY_TOKEN(HttpStatus.UNAUTHORIZED, "JWT404", "토큰이 없습니다."),
 	_MALFORMED_TOKEN(HttpStatus.UNAUTHORIZED, "JWT405", "토큰 형식이 올바르지 않습니다."),
 	_SIGNATURE_INVALID(HttpStatus.UNAUTHORIZED, "JWT406", "토큰 서명이 유효하지 않습니다."),
 	_TOKEN_VALIDATION_FAILED(HttpStatus.UNAUTHORIZED, "JWT401-7", "토큰 검증에 실패했습니다."),
