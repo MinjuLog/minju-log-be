@@ -54,7 +54,7 @@ public class JwtProvider {
         claims.put("type", type.getValue());
 
         return Jwts.builder()
-                    .setSubject(memberId)
+                    .setClaims(claims)
                     .setIssuedAt(now)
                     .setExpiration(expiration)
                     .signWith(key, SignatureAlgorithm.HS256)
