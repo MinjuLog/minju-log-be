@@ -20,6 +20,13 @@ import java.io.IOException;
 // JWT 처리 중 발생하는 예외를 잡아내서 json으로 던지는 필터 (에러 던지기)
 public class JwtExceptionFilter extends OncePerRequestFilter {
 
+    private final ObjectMapper objectMapper;
+
+    // 스프링이 관리하는 ObjectMapper 자동 주입
+    public JwtExceptionFilter(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
@@ -42,6 +49,6 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
 
         response.setStatus(errorCode.getHttpStatus().value());
         response.setContentType("application/json;charset=UTF-8");
-        new ObjectMapper().writeValue(response.getOutputStream(), baseResponse);
+        objectMapper.writeValue(response.getOutputStream(), baseResponse);
     }
 }
