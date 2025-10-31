@@ -3,15 +3,16 @@ package com.server.domain.test.controller;
 import com.server.domain.test.dto.request.TestRequestDto;
 import com.server.domain.test.dto.response.TestResponseDto;
 import com.server.domain.test.service.TestService;
+import com.server.global.common.base.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/tests")
 @RequiredArgsConstructor
 @Tag(name = "Test", description = "Test API")
 public class TestController {
@@ -20,27 +21,33 @@ public class TestController {
 
     @Operation(summary = "전체 테스트 조회")
     @GetMapping
-    public ResponseEntity<List<TestResponseDto>> getAllTests() {
-        return ResponseEntity.ok(testService.getAllTests());
+    public BaseResponse<List<TestResponseDto>> getAllTests() {
+        return BaseResponse.onSuccess(testService.getAllTests());
     }
 
     @Operation(summary = "단일 테스트 조회")
     @GetMapping("/{id}")
-    public ResponseEntity<TestResponseDto> getTest(@PathVariable Long id) {
-        return ResponseEntity.ok(testService.getTest(id));
+    public BaseResponse<TestResponseDto> getTest(@PathVariable Long id) {
+        return BaseResponse.onSuccess(testService.getTest(id));
     }
 
     @Operation(summary = "테스트 생성")
     @PostMapping
-    public ResponseEntity<TestResponseDto> createTest(@RequestBody TestRequestDto dto) {
-        return ResponseEntity.ok(testService.createTest(dto));
+    public BaseResponse<TestResponseDto> createTest(@RequestBody TestRequestDto dto) {
+        return BaseResponse.onSuccess(testService.createTest(dto));
     }
 
     @Operation(summary = "테스트 삭제")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTest(@PathVariable Long id) {
+    public BaseResponse<String> deleteTest(@PathVariable Long id) {
         testService.deleteTest(id);
-        return ResponseEntity.noContent().build();
+        return BaseResponse.onSuccess("");
+    }
+
+    @Operation(summary = "시큐리티 테스트")
+    @GetMapping("/secure")
+    public BaseResponse<String> securityTest() {
+        return BaseResponse.onSuccess("");
     }
 
 }
