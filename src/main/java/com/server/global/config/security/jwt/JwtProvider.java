@@ -44,9 +44,9 @@ public class JwtProvider {
 
         // 토큰 타입에 따라 만료 시간 설정
         if (TokenType.ACCESS_TOKEN.equals(type)) { // 액세스 토큰
-            expiration=calculateExpirationDate(now, jwtAccessExpiration);
+            expiration = calculateExpirationDate(now, jwtAccessExpiration);
         } else { // 리프레쉬 토큰
-            expiration=calculateExpirationDate(now, jwtRefreshExpiration);
+            expiration = calculateExpirationDate(now, jwtRefreshExpiration);
         }
 
         Claims claims = Jwts.claims().setSubject(memberId); // JWT payload 에 저장되는 정보단위
