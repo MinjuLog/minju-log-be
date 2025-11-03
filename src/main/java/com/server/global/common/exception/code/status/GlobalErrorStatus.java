@@ -22,6 +22,7 @@ public enum GlobalErrorStatus implements BaseCodeInterface {
 	_SIGNATURE_INVALID(HttpStatus.UNAUTHORIZED, "JWT406", "토큰 서명이 유효하지 않습니다."),
 	_TOKEN_VALIDATION_FAILED(HttpStatus.UNAUTHORIZED, "JWT401-7", "토큰 검증에 실패했습니다."),
 
+	_NUMBER_FORMAT_EXCEPTION(HttpStatus.BAD_REQUEST, "COMMON4001", "숫자 형식 변환에 실패했습니다."),
     _VALIDATION_ERROR(HttpStatus.BAD_REQUEST, "COMMON402", "Validation Error입니다."),
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "권한이 없습니다."),
     _NOT_FOUND(HttpStatus.NOT_FOUND, "COMMON404", "요청한 정보를 찾을 수 없습니다."),
