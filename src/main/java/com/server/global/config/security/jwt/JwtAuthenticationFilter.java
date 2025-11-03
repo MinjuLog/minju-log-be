@@ -1,5 +1,7 @@
 package com.server.global.config.security.jwt;
 
+import com.server.global.common.exception.RestApiException;
+import com.server.global.common.exception.code.status.GlobalErrorStatus;
 import com.server.global.config.security.model.CustomPrincipal;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
@@ -11,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -39,7 +42,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             // 토큰이 유효하면 Claims(페이로드) 추출
             Claims claims = jwtProvider.parseClaims(token);
-            Long memberId = Long.valueOf(claims.get("memberId").toString());
+            long memberId;
+            try{
+                // Claims에서 사용자 정보 추출, 사용자 정보가 없으면 예외 처리
+                if(claims.get("memberId") == null) throw new RestApiException(GlobalErrorStatus._NOT_FOUND_USER_INFO);
+
+                memberId = Long.parseLong(claims.get("memberId").toString());
+            } catch (NumberFormatException e){
+                throw new RestApiException(GlobalErrorStatus._NUMBER_FORMAT_EXCEPTION);
+            }
 
             // DB에서 사용자 정보 조회 (Spring Security 표준 UserDetails)
             CustomPrincipal userDetails = new CustomPrincipal(memberId);
