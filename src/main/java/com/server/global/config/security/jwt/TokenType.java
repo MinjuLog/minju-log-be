@@ -1,6 +1,5 @@
 package com.server.global.config.security.jwt;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
