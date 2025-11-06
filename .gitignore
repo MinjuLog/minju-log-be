@@ -44,7 +44,7 @@ out/
 !appspec.yml
 
 # env 파일
-*.env
+.env.*
 
 ### MAC OS ###
 .DS_Store
