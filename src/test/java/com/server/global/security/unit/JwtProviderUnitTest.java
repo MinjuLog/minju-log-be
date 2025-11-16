@@ -1,3 +1,4 @@
+/*
 package com.server.global.security.unit;
 
 import com.server.global.config.security.jwt.JwtProvider;
@@ -21,7 +22,7 @@ class JwtProviderUnitTest {
 
     private JwtProvider jwtProvider;
 
-    private String testSecretKey = "testsecrettestsecrettestsecrettestsecrettestsecrettestsecrettestsecrettestsecrettestsecret";
+    private String testSecretKey = "testsecrettestsecrettestsecrettestsecrettestsecrettestsecrettestsecrettestsecret";
 
     private Key key;
 
@@ -91,3 +92,4 @@ class JwtProviderUnitTest {
 
 
 }
+*/

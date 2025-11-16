@@ -2,7 +2,7 @@ package com.server.domain.test.controller;
 
 import com.server.domain.test.dto.request.TestRequestDto;
 import com.server.domain.test.dto.response.TestResponseDto;
-import com.server.domain.test.service.TestService;
+import com.server.application.service.test.TestApplicationService;
 import com.server.global.common.base.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,7 +17,7 @@ import java.util.List;
 @Tag(name = "Test", description = "Test API")
 public class TestController {
 
-    private final TestService testService;
+    private final TestApplicationService testService;
 
     @Operation(summary = "전체 테스트 조회")
     @GetMapping

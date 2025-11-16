@@ -1,5 +1,6 @@
 # 실행 명령어(env 파일 포함)
-# docker-compose -f docker-compose.local.yml --env-file .env.local.dev up -d
+# docker-compose -f docker-compose.local.yml --env-file .env.local up -d
+
 services:
   mysql:
     container_name: mysql-minjulog-local
@@ -8,11 +9,18 @@ services:
       - target: ${MYSQL_INNER_PORT}
         published: ${MYSQL_OUTER_PORT}
     environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
-    command: --default-authentication-plugin=mysql_native_password
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    restart: always
 
   redis:
     container_name: redis-minjulog-local
@@ -20,4 +28,12 @@ services:
     ports:
       - target: ${REDIS_INNER_PORT}
         published: ${REDIS_OUTER_PORT}
-    command: redis-server --requirepass ${REDIS_PASSWORD}
+    command: >
+      redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    restart: always
+
+volumes:
+  mysql_data:
+  redis_data:

@@ -1,0 +1,40 @@
+# 실행 명령어(env 파일 포함)
+# docker-compose -f docker-compose.dev.yml --env-file .env.local.dev up -d
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8.0
+    ports:
+      - target: ${MYSQL_INNER_PORT}
+        published: ${MYSQL_OUTER_PORT}
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - mysql-data-dev:/var/lib/mysql
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - target: ${REDIS_INNER_PORT}
+        published: ${REDIS_OUTER_PORT}
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis-data-dev:/data
+
+  spring-application:
+    container_name: spring-application
+    # todo 도커 레지스트리 경로로 수정
+    image: asia-northeast3-docker.pkg.dev/ninth-sol-477407-h5/minjulog-dev:latest
+    ports:
+      - "80:8080"
+    environment:
+      - SPRING_APPLICATION_ENV=dev
+
+volumes:
+  mysql-data-dev:
+  redis-data-dev:
