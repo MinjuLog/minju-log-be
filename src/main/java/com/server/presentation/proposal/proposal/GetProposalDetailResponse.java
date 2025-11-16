@@ -2,6 +2,7 @@ package com.server.presentation.proposal.proposal;
 
 import com.server.application.usecase.proposal.proposal.GetProposalDetailResult;
 import com.server.application.usecase.proposal.signature.SignatureListItemResult;
+import com.server.presentation.proposal.signature.SignatureListItemResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDate;

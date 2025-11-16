@@ -12,7 +12,7 @@ public class VoteProposalConverter {
         return new VoteProposalCommand(
                 request.userId(),
                 proposalId,
-                ProposalVoteType.valueOf(request.voteType())
+                request.voteType()
         );
     }
 }

@@ -27,7 +27,7 @@ public class Proposal extends BaseEntity {
     private User user;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private ProposalStatus status;
 
     @Column(nullable = false)
