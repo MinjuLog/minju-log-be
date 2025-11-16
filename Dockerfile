@@ -1,6 +1,6 @@
-FROM openjdk:21-jdk-slim
+FROM eclipse-temurin:17-jdk-jammy
 
-# JAR 파일 복사 및 실행
 ARG JAR_FILE=build/libs/*.jar
-COPY ${JAR_FILE} product-0.0.1.jar
-ENTRYPOINT ["java","-jar","/product-0.0.1.jar"]
+COPY ${JAR_FILE} app.jar
+
+ENTRYPOINT ["java","-jar","/app.jar"]

@@ -1,40 +1,59 @@
-# 실행 명령어(env 파일 포함)
-# docker-compose -f docker-compose.dev.yml --env-file .env.local.dev up -d
+# 실행 명령어 (env 파일 포함)
+# docker-compose -f docker-compose.dev.yml --env-file .env.dev --profile dev up -d
+
+version: "3.9"
+
 services:
   mysql:
-    container_name: mysql
+    container_name: mysql-minjulog-dev
     image: mysql:8.0
     ports:
-      - target: ${MYSQL_INNER_PORT}
-        published: ${MYSQL_OUTER_PORT}
+      - target: 3306
+        published: 3306
     environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
-    command: --default-authentication-plugin=mysql_native_password
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
     volumes:
-      - mysql-data-dev:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    restart: always
 
   redis:
-    container_name: redis
+    container_name: redis-minjulog-dev
     image: redis:latest
     ports:
-      - target: ${REDIS_INNER_PORT}
-        published: ${REDIS_OUTER_PORT}
-    command: redis-server --requirepass ${REDIS_PASSWORD}
+      - target: 6379
+        published: 6379
+    command: >
+      redis-server --requirepass ${REDIS_PASSWORD}
     volumes:
-      - redis-data-dev:/data
+      - redis_data:/data
+    restart: always
 
-  spring-application:
-    container_name: spring-application
-    # todo 도커 레지스트리 경로로 수정
-    image: asia-northeast3-docker.pkg.dev/ninth-sol-477407-h5/minjulog-dev:latest
+  app:
+    container_name: minjulog-app-dev
+    image: shim1510/minjilog-dev
+    depends_on:
+      - mysql
+      - redis
     ports:
-      - "80:8080"
+      - "80:80" # 내부 80 → 외부 8080 (원하면 변경 가능)
     environment:
-      - SPRING_APPLICATION_ENV=dev
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+      SPRING_REDIS_PASSWORD: ${REDIS_PASSWORD}
+    restart: always
 
 volumes:
-  mysql-data-dev:
-  redis-data-dev:
+  mysql_data:
+  redis_data:
