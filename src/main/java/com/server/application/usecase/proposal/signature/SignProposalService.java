@@ -27,15 +27,14 @@ public class SignProposalService implements SignProposalUseCase {
         Proposal proposal = proposalRepository.findById(command.proposalId())
                 .orElseThrow(() -> new RestApiException(GlobalErrorStatus._NOT_FOUND));
 
-        // 이미 서명했으면 에러
+        // 이미 서명했으면 기존 서명 삭제 후 새로 생성
         signatureRepository.findByProposalAndUser(proposal, user)
-                .ifPresent(s -> {
-                    throw new RestApiException(GlobalErrorStatus._BAD_REQUEST);
-                });
+                .ifPresent(signatureRepository::delete);
 
         ProposalSignature signature = ProposalSignature.builder()
                 .proposal(proposal)
                 .user(user)
+                .nickname(command.nickname())
                 .signatureType(command.signatureType())
                 .content(command.content())
                 .build();

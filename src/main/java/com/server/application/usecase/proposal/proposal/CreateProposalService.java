@@ -3,8 +3,10 @@ package com.server.application.usecase.proposal.proposal;
 import com.server.domain.entity.proposal.Proposal;
 import com.server.domain.entity.proposal.ProposalStatus;
 import com.server.domain.entity.proposal.ProposalStatusHistory;
+import com.server.domain.entity.tag.Topic;
 import com.server.domain.entity.user.User;
 import com.server.domain.repository.proposal.ProposalRepository;
+import com.server.domain.repository.tag.TopicRepository;
 import com.server.domain.repository.user.UserRepository;
 import com.server.global.common.exception.RestApiException;
 import com.server.global.common.exception.code.status.GlobalErrorStatus;
@@ -17,6 +19,7 @@ public class CreateProposalService implements CreateProposalUseCase {
 
     private final UserRepository userRepository;
     private final ProposalRepository proposalRepository;
+    private final TopicRepository topicRepository;
 
         @Override
         public CreateProposalResult execute(CreateProposalCommand command) {
@@ -24,10 +27,17 @@ public class CreateProposalService implements CreateProposalUseCase {
         User user = userRepository.findById(command.userId())
                 .orElseThrow(() -> new RestApiException(GlobalErrorStatus._NOT_FOUND));
 
+        Topic topic = null;
+        if (command.topicId() != null) {
+            topic = topicRepository.findById(command.topicId())
+                    .orElseThrow(() -> new RestApiException(GlobalErrorStatus._NOT_FOUND));
+        }
+
         Proposal proposal = Proposal.builder()
                 .user(user)
                 .title(command.title())
                 .body(command.body())
+                .topic(topic)
                 .status(ProposalStatus.COLLECTING)
                 .viewCount(0L)
                 .hashtags(command.hashtags())

@@ -56,24 +56,21 @@ public class ProposalController {
     }
 
     @GetMapping
-        @Operation(summary = "제안 목록 조회")
+    @Operation(summary = "제안 목록 조회")
     public BaseResponse<Page<ProposalListItemResponse>> list(
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String hashtag,
             @RequestParam(defaultValue = "latest") String sort,
-            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
-            Pageable pageable
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
     ) {
-        // pageable 의 sort 제거 (강제 무시)
-        Pageable pageableWithoutSort = Pageable.ofSize(pageable.getPageSize())
-                .withPage(pageable.getPageNumber());
+        // 커스텀 sort 파라미터만 사용, Pageable의 sort는 무시
+        Pageable pageable = Pageable.ofSize(size).withPage(page);
 
-                var page = proposalApplicationService.list(keyword, status, hashtag, sort, pageableWithoutSort);
-
-                var responsePage = page.map(ProposalListItemResponse::new);
-
-                return BaseResponse.onSuccess(responsePage);
+        var pageResult = proposalApplicationService.list(keyword, status, hashtag, sort, pageable);
+        var responsePage = pageResult.map(ProposalListItemResponse::new);
+        return BaseResponse.onSuccess(responsePage);
     }
 
         @GetMapping("/by-hashtag")

@@ -1,10 +1,9 @@
 package com.server.domain.entity.policy;
 
 import com.server.domain.entity.tag.Tag;
+import com.server.global.common.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "policy_case_tag")
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class PolicyCaseTag {
+public class PolicyCaseTag extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,19 +1,16 @@
-package com.server.domain.entity.policy;
+package com.server.domain.entity.tag;
 
 import com.server.global.common.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-@Table(name = "policy_case")
+@Table(name = "topic")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class PolicyCase extends BaseEntity {
+public class Topic extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +19,13 @@ public class PolicyCase extends BaseEntity {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String body;
+    @Column(nullable = false)
+    private String region;
 
-    @OneToMany(mappedBy = "policyCase", cascade = CascadeType.ALL)
-    private List<PolicyCaseTag> tags = new ArrayList<>();
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String hashtags;  // 콤마로 구분된 해시태그 문자열
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String content;
 }
 

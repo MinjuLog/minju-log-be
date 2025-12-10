@@ -39,6 +39,7 @@ public class GetProposalDetailService implements GetProposalDetailUseCase {
 
         // 조회수 증가
         proposal.increaseViewCount();
+        proposalRepository.save(proposal);
 
         // 투표 개수
         long agreeVoteCount = voteRepository.countByProposalAndVoteType(proposal, ProposalVoteType.AGREE);
@@ -61,7 +62,7 @@ public class GetProposalDetailService implements GetProposalDetailUseCase {
                 .orElse(new GetProposalDetailResult.MySignature(false, null, null));
 
         List<SignatureListItemResult> recent = signatureRepository.findAllByProposal(proposal).stream()
-                .sorted(Comparator.comparing(ProposalSignature::getCreatedAt).reversed())
+                .sorted(Comparator.comparing(ProposalSignature::getCreatedAt, Comparator.nullsLast(Comparator.naturalOrder())).reversed())
                 .limit(10)
                 .map(s -> new SignatureListItemResult(
                         s.getId(),
@@ -80,6 +81,8 @@ public class GetProposalDetailService implements GetProposalDetailUseCase {
                 proposal.getStatus().name(),
                 proposal.getViewCount(),
                 proposal.getHashtags(),
+                proposal.getTopic() != null ? proposal.getTopic().getId() : null,
+                proposal.getTopic() != null ? proposal.getTopic().getTitle() : null,
                 proposal.getDueDate(),
                 agreeSignatureCount,
                 disagreeSignatureCount,

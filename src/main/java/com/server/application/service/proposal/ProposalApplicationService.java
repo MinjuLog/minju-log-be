@@ -62,7 +62,6 @@ public class ProposalApplicationService {
         cancelSignatureProposalUseCase.execute(command);
     }
 
-    @Transactional(readOnly = true)
     public GetProposalDetailResult getDetail(Long proposalId, Long userId) {
         return getProposalDetailUseCase.execute(proposalId, userId);
     }
@@ -73,8 +72,8 @@ public class ProposalApplicationService {
     }
 
     @Transactional(readOnly = true)
-    public Page<SignatureListItemResult> getSignatures(Long proposalId, Pageable pageable) {
-        return getProposalSignaturesUseCase.execute(proposalId, pageable);
+    public Page<SignatureListItemResult> getSignatures(Long proposalId, Pageable pageable, String filter) {
+        return getProposalSignaturesUseCase.execute(proposalId, pageable, filter);
     }
 
     public void changeStatus(ChangeProposalStatusCommand command) {

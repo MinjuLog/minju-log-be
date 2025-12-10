@@ -21,6 +21,7 @@ public class CreateProposalConverter {
                 request.userId(),
                 request.title(),
                 request.body(),
+                request.topicId(),
                 hashtags,
                 dueDate
         );

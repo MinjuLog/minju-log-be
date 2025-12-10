@@ -50,11 +50,12 @@ public class ProposalSignatureController {
                     @Operation(summary = "서명 목록 조회")
                     public BaseResponse<org.springframework.data.domain.Page<com.server.presentation.proposal.signature.SignatureListItemResponse>> list(
                                 @PathVariable Long proposalId,
+                                @RequestParam(defaultValue = "ALL") String filter,
                                 @RequestParam(defaultValue = "0") int page,
                                 @RequestParam(defaultValue = "10") int size
                 ) {
                         var pageable = org.springframework.data.domain.PageRequest.of(page, size);
-                        var pageResult = proposalApplicationService.getSignatures(proposalId, pageable);
+                        var pageResult = proposalApplicationService.getSignatures(proposalId, pageable, filter);
                         var responsePage = pageResult.map(r -> new com.server.presentation.proposal.signature.SignatureListItemResponse(
                                         r.signatureId(), r.userId(), r.nickname(), r.signatureType(), r.content(), r.createdAt()
                         ));

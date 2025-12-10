@@ -5,6 +5,7 @@ import com.server.domain.entity.proposal.ProposalSignatureType;
 public record SignProposalCommand(
         Long userId,
         Long proposalId,
+        String nickname,
         ProposalSignatureType signatureType,
         String content
 ) {}

@@ -12,6 +12,7 @@ public class SignProposalConverter {
         return new SignProposalCommand(
                 request.userId(),
                 proposalId,
+                request.nickname(),
                 request.signatureType(),
                 request.content()
         );

@@ -7,6 +7,7 @@ public record CreateProposalCommand(
         Long userId,
         String title,
         String body,
+        Long topicId,
         List<String> hashtags,
         LocalDate dueDate
 ) {}

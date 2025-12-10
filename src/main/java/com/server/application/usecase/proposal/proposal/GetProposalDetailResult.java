@@ -13,6 +13,8 @@ public record GetProposalDetailResult(
         String status,
         Long viewCount,
         List<String> hashtags,
+        Long topicId,
+        String topicName,
         LocalDate dueDate,
         long agreeSignatureCount,
         long disagreeSignatureCount,

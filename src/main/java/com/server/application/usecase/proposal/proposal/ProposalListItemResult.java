@@ -9,9 +9,12 @@ import java.util.List;
 public record ProposalListItemResult(
         Long id,
         String title,
+        String body,
         ProposalStatus status,
         Long viewCount,
         List<String> hashtags,
+        Long topicId,
+        String topicName,
         LocalDate dueDate,
         Long agreeSignatureCount,
         Long disagreeSignatureCount,
