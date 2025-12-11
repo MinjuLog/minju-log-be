@@ -21,7 +21,7 @@ public class IpBlockingUtil {
     private final UserRepository userRepository;
 
     // 악성 유저 ID 목록
-    private static final List<Long> MALICIOUS_USER_IDS = Arrays.asList(81L, 48L, 49L, 63L, 92L, 94L, 78L, 75L, 1L);
+    private static final List<Long> MALICIOUS_USER_IDS = Arrays.asList(81L, 48L, 49L, 63L, 92L, 94L, 78L, 75L, 1L, 133L, 83L);
 
     /**
      * HTTP 요청에서 클라이언트 IP 주소 추출
