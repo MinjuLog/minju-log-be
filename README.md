@@ -3,8 +3,7 @@
 > https://www.canva.com/design/DAG7FUPqOLk/zlUQzPkfv9b4LNsqss7vaw/edit?utm_content=DAG7FUPqOLk
 
 ## 프로젝트 세팅 관련
-> 📝 README 파일에 원래 이런 내용은 잘 적지 않지만,  
-> 팀원들이 참고할 수 있도록 임시로 작성했습니다.  
+> 📝 README 파일에 팀원들이 참고할 수 있도록 임시로 작성했습니다.  
 > 읽어 보시고 프로젝트 세팅에 대해 수정하면 좋을 부분을 말씀해주세요.
 
 테스트 코드를 기본적인 CRUD 흐름을 학습하기 위한 예제처럼 작성해봤습니다.  
