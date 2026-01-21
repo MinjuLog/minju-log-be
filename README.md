@@ -2,8 +2,6 @@
 ## 프로젝트 세팅 관련
 > 📝 README 파일에 원래 이런 내용은 잘 적지 않지만,  
 > 팀원들이 참고할 수 있도록 임시로 작성했습니다.  
-> (나중에는 삭제 예정)
-> 시간이 없어서 동작에 대해 테스트는 하지 못했습니다.
 > 읽어 보시고 프로젝트 세팅에 대해 수정하면 좋을 부분을 말씀해주세요.
 
 테스트 코드를 기본적인 CRUD 흐름을 학습하기 위한 예제처럼 작성해봤습니다.  
@@ -52,51 +50,4 @@ DTO / Entity / Mapper 역할을 쉽게 이해할 수 있도록 작성되었습�
 
 
 ## 프로젝트 구조 관련
-현재 구조는 아래와 같습니다.
-```
-src
- ┣ main
- ┃ ┣ java
- ┃ ┃ ┗ com.example.demo
- ┃ ┃   ┣ controller
- ┃ ┃   ┣ service
- ┃ ┃   ┣ repository
- ┃ ┃   ┣ dto
- ┃ ┃   ┣ entity
- ┃ ┃   ┗ mapper
-```
-
-각 DDD 레이어의 역할은 다음과 같습니다.
-- Controller: HTTP 요청을 처리하고, Service 레이어를 호출합니다.
-- Service: 비즈니스 로직을 처리하고, Repository 레이어를 호출합니다.
-- Repository: 데이터베이스와의 상호작용을 담당합니다.
-- DTO: 데이터 전송 객체로, 프론트와 데이터 교환을 위해 사용됩니다.
-- Entity: 데이터베이스 테이블과 매핑되는 객체입니다.
-- Mapper: DTO와 Entity 간의 변환을 담당합니다.
-
-해당 구조튼 다른 도메인의 서비스를 참조할 수 밖에 없는 구조입니다.
-예를 들어, UserService에서 OrderService를 참조하는 경우가 있을 수 있습니다.
-
-좀 더 상호의 의존성을 줄이기 위해
-레이어를 하나 더 추가하는 방법도 있습니다.
-
-```
-src
- ┣ main
- ┃ ┣ java
- ┃ ┃ ┗ com.example.demo
- ┃ ┃   ┣ controller
- ┃ ┃   ┣ service
- ┃ ┃   ┣ repository
- ┃ ┃   ┣ dto
- ┃ ┃   ┣ entity
- ┃ ┃   ┣ mapper
- ┃ ┃   ┗ facade
-```
-- Facade: 여러 서비스의 기능을 조합하여 제공하는 레이어입니다.
-- Controller는 Facade를 호출하고, Facade는 여러 Service를 호출합니다.
-- Service는 Repository만 호출합니다.
-
-이렇게 하면 Controller와 Service 간의 의존성을 줄일 수 있습니다.
-하지만 복잡도가 증가합니다.  
-때문에 스프링 개발에 익숙하지 않은 사람들이 진행하기에 어려움이 있을 수 있습니다.
+> 위키에 있는 문서를 참조바랍니다.
