@@ -1,3 +1,6 @@
+## 민주로그 소개
+> 발표자료
+> https://www.canva.com/design/DAG7FUPqOLk/zlUQzPkfv9b4LNsqss7vaw/edit?utm_content=DAG7FUPqOLk
 
 ## 프로젝트 세팅 관련
 > 📝 README 파일에 원래 이런 내용은 잘 적지 않지만,  
